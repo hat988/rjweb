@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riyazul Jannah Tours | Your Sacred Journey Awaits</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Fallback color */
+            background-color: transparent; /* Allows particle background to be visible */
             position: relative;
-            overflow-x: hidden; /* Prevent horizontal scroll from airplane */
+            overflow-x: hidden;
         }
 
         /* --- Global Particle & Gradient Background --- */
@@ -49,10 +49,13 @@
             background: rgba(14, 165, 233, 0.2);
             border-radius: 50%;
             animation: drift 25s infinite linear;
-            z-index: -1;
         }
 
         @keyframes drift {
+            from {
+                transform: translateY(0) translateX(0);
+                opacity: 0.7;
+            }
             to {
                 transform: translateY(-105vh) translateX(20vw);
                 opacity: 0;
@@ -94,7 +97,6 @@
             display: inline-block;
             opacity: 0;
             animation: fadeInLetter 0.5s forwards;
-            animation-delay: 0.5s;
         }
         @keyframes popIn { to { opacity: 1; transform: scale(1); } }
         @keyframes fadeInLetter { to { opacity: 1; } }
@@ -115,7 +117,7 @@
             height: auto;
             z-index: 0;
             transform: translateX(-50%) translateY(-50%);
-            opacity: 0.15;
+            opacity: 0.2;
         }
         
         /* --- Mobile Menu Animation --- */
@@ -127,8 +129,14 @@
         #mobile-menu.active {
             max-height: 500px; /* Adjust if menu is taller */
         }
+
+        /* --- Active Nav Link Style --- */
+        .nav-link.active {
+             color: #0ea5e9; /* sky-500 */
+             font-weight: 600;
+        }
         
-        /* --- Corrected Journey Steps Connector Lines --- */
+        /* --- Journey Steps Connector Lines --- */
         .step-item {
             position: relative;
         }
@@ -138,22 +146,20 @@
             background: linear-gradient(to right, #38bdf8, #a5f3fc);
             z-index: 0;
         }
-        /* Desktop Connector */
-        @media (min-width: 768px) {
+        @media (min-width: 768px) { /* Desktop Connector */
             .step-item:not(:last-child)::after {
                 height: 2px;
                 width: calc(100% - 96px);
-                top: 48px; /* Vertical center of the icon circle */
+                top: 48px;
                 left: calc(50% + 48px);
             }
         }
-        /* Mobile Connector */
-        @media (max-width: 767px) {
+        @media (max-width: 767px) { /* Mobile Connector */
              .step-item:not(:last-child)::after {
                 width: 2px;
                 height: calc(100% - 48px);
-                left: 47px; /* Horizontal center of the icon circle */
-                top: 96px; /* Start below the icon */
+                left: 47px;
+                top: 96px;
              }
         }
         .step-item .icon-wrapper:hover {
@@ -162,26 +168,17 @@
         }
 
         /* --- Gallery Labels --- */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-        }
+        .gallery-item { position: relative; overflow: hidden; }
         .gallery-item .gallery-label {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 8px;
-            text-align: center;
-            font-weight: 500;
+            color: white; padding: 8px;
+            text-align: center; font-weight: 500;
             transform: translateY(100%);
             transition: transform 0.3s ease-in-out;
         }
-        .gallery-item:hover .gallery-label {
-            transform: translateY(0);
-        }
+        .gallery-item:hover .gallery-label { transform: translateY(0); }
 
         /* --- Testimonial Carousel --- */
         .testimonial-carousel {
@@ -191,15 +188,13 @@
         }
         .testimonial-track {
             display: flex;
-            width: calc(2 * var(--carousel-width));
-            animation: scroll-left 40s linear infinite;
+            width: calc(2 * var(--carousel-width, 2000px)); /* Fallback width */
+            animation: scroll-left 45s linear infinite;
         }
-        .testimonial-track:hover {
-            animation-play-state: paused;
-        }
+        .testimonial-track:hover { animation-play-state: paused; }
         @keyframes scroll-left {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-1 * var(--carousel-width))); }
+            100% { transform: translateX(calc(-1 * var(--carousel-width, 2000px))); }
         }
 
         /* --- Scroll to Top Button Animation --- */
@@ -208,66 +203,47 @@
             50% { box-shadow: 0 0 20px 8px rgba(14, 165, 233, 0); }
         }
         #scrollToTopBtn.active { animation: pulse-glow 2s infinite; }
-        #scrollToTopBtn:hover { animation: shake 0.5s; }
-        @keyframes shake {
-           10%, 90% { transform: translate3d(-1px, 0, 0); }
-           20%, 80% { transform: translate3d(2px, 0, 0); }
-           30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-           40%, 60% { transform: translate3d(4px, 0, 0); }
-        }
+        /* ENHANCED: Smooth scaling on hover for a modern feel */
+        #scrollToTopBtn:hover { transform: scale(1.15); }
         
         /* --- Inspirational Popup --- */
         #inspiration-popup-backdrop {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
             transition: opacity 0.3s ease-in-out;
         }
         #inspiration-popup-content {
-            transform: scale(0.9);
-            transition: transform 0.3s ease-in-out;
+            transform: scale(0.9); transition: transform 0.3s ease-in-out;
         }
-        #inspiration-popup.show #inspiration-popup-content {
-            transform: scale(1);
+        #inspiration-popup.show #inspiration-popup-content { transform: scale(1); }
+
+        /* Scroll-triggered Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        
-        /* --- Floating Airplane --- */
-        #floating-plane {
-            position: fixed;
-            top: 20%;
-            left: -100px;
-            z-index: 1000;
-            pointer-events: none;
-            transition: opacity 0.5s;
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .plane-path {
-            animation: fly-across 15s linear forwards;
-        }
-        @keyframes fly-across {
-            0% { transform: translateX(0) translateY(0) rotate(-15deg); }
-            20% { transform: translateX(40vw) translateY(-5vh) rotate(5deg); }
-            50% { transform: translateX(70vw) translateY(5vh) rotate(10deg); }
-            100% { transform: translateX(110vw) translateY(-10vh) rotate(-10deg); }
-        }
+
     </style>
 </head>
 <body class="text-slate-700">
+    <!-- Background container for particles and gradient -->
     <div id="site-background">
       <div id="global-particle-container"></div>
     </div>
     
-    <div id="floating-plane" class="opacity-0">
-        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" stroke="#0ea5e9" stroke-width="0.5"><path d="m22 2-1.1.2L19.4 6 18 5.6 15 12l-4-1-2.2 4.5L2 13.2V11l5.5-2.5L5.3 4 4.5 2zM2 20h20"/><path d="m14.5 12 5.7.2L22 15l-.4 1.5-1.5 1-.4 1.5L18 20h-2l-1.5-1-3-1z"/></svg>
-    </div>
-
     <!-- Preloader -->
     <div id="preloader">
-        <div class="text-center">
+         <div class="text-center">
             <img id="preloader-logo-img" src="https://placehold.co/100x100/38bdf8/FFFFFF?text=RJT" class="loader-logo w-24 h-24 mx-auto mb-4 rounded-full" alt="Riyazul Jannah Tours Logo">
             <div class="loader-content">
-                <h1 class="text-3xl md:text-4xl font-bold text-sky-600 tracking-wider"></h1>
-                <p class="text-slate-500 mt-3 opacity-0 transition-opacity duration-500" id="preloader-subtitle">Crafting your sacred journey...</p>
+                <h1 id="preloader-title" class="text-3xl md:text-4xl font-bold text-sky-600 tracking-wider"></h1>
+                <p id="preloader-subtitle" class="text-slate-500 mt-3 opacity-0 transition-opacity duration-500">Crafting your sacred journey...</p>
             </div>
-        </div>
+         </div>
     </div>
 
     <!-- Header -->
@@ -277,28 +253,28 @@
                 <img src="https://placehold.co/50x50/38bdf8/FFFFFF?text=R" class="w-12 h-12 rounded-full" alt="Logo">
                 <span class="text-2xl font-bold text-sky-600 hidden sm:block">Riyazul Jannah</span>
             </a>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#home" class="text-slate-600 hover:text-sky-500 transition-colors">Home</a>
-                <a href="#why-us" class="text-slate-600 hover:text-sky-500 transition-colors">Why Us</a>
-                <a href="#process" class="text-slate-600 hover:text-sky-500 transition-colors">Process</a>
-                <a href="#packages" class="text-slate-600 hover:text-sky-500 transition-colors">Packages</a>
-                <a href="#gallery" class="text-slate-600 hover:text-sky-500 transition-colors">Gallery</a>
-                <a href="#contact" class="text-slate-600 hover:text-sky-500 transition-colors">Contact</a>
+            <nav id="desktop-nav" class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-slate-600 hover:text-sky-500 transition-colors">Home</a>
+                <a href="#why-us" class="nav-link text-slate-600 hover:text-sky-500 transition-colors">Why Us</a>
+                <a href="#process" class="nav-link text-slate-600 hover:text-sky-500 transition-colors">Process</a>
+                <a href="#packages" class="nav-link text-slate-600 hover:text-sky-500 transition-colors">Packages</a>
+                <a href="#gallery" class="nav-link text-slate-600 hover:text-sky-500 transition-colors">Gallery</a>
+                <a href="#contact" class="nav-link text-slate-600 hover:text-sky-500 transition-colors">Contact</a>
             </nav>
             <a href="#packages" class="hidden md:inline-block bg-sky-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-sky-600 transition-transform hover:scale-105 shadow-lg">View Packages</a>
-            <button id="mobile-menu-button" class="md:hidden text-slate-700 z-50">
+             <button id="mobile-menu-button" aria-label="Open Menu" class="md:hidden text-slate-700 z-50">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
         </div>
          <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden bg-white/95 backdrop-blur-sm">
-            <a href="#home" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Home</a>
-            <a href="#why-us" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Why Us</a>
-            <a href="#process" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Process</a>
-            <a href="#packages" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Packages</a>
-            <a href="#gallery" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Gallery</a>
-            <a href="#contact" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Contact</a>
-            <div class="p-4">
+            <a href="#home" class="nav-link block py-3 px-6 text-slate-600 hover:bg-sky-50">Home</a>
+            <a href="#why-us" class="nav-link block py-3 px-6 text-slate-600 hover:bg-sky-50">Why Us</a>
+            <a href="#process" class="nav-link block py-3 px-6 text-slate-600 hover:bg-sky-50">Process</a>
+            <a href="#packages" class="nav-link block py-3 px-6 text-slate-600 hover:bg-sky-50">Packages</a>
+            <a href="#gallery" class="nav-link block py-3 px-6 text-slate-600 hover:bg-sky-50">Gallery</a>
+            <a href="#contact" class="nav-link block py-3 px-6 text-slate-600 hover:bg-sky-50">Contact</a>
+             <div class="p-4">
                  <a href="#packages" class="w-full text-center block bg-sky-500 text-white font-semibold px-5 py-3 rounded-lg hover:bg-sky-600 transition-transform hover:scale-105 shadow-lg">View Packages</a>
             </div>
         </div>
@@ -308,48 +284,40 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="relative hero-section flex items-center justify-center text-white text-center">
-            <video autoplay loop muted playsinline id="hero-video">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-window-view-of-a-plane-flying-in-the-sky-33436-large.mp4" type="video/mp4">
+            <!-- Dummy video link as requested. Replace with your actual video file. -->
+            <video autoplay loop muted playsinline id="hero-video" poster="https://placehold.co/1920x1080/000000/FFFFFF?text=Video+Loading...">
+                <source src="RJ_Flight.mp4">
             </video>
             <div class="absolute inset-0 bg-black/50"></div>
             <div class="relative z-10 px-4">
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 animate-on-scroll">A Journey of Faith, <br> Perfected by Us.</h1>
-                <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 animate-on-scroll" style="transition-delay: 200ms;">Experience a seamless and spiritually enriching Umrah with Riyazul Jannah Tours. We handle every detail, so you can focus on what truly matters.</p>
-                <a href="#packages" class="bg-sky-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-sky-400 transition-all duration-300 transform hover:scale-110 shadow-2xl animate-on-scroll" style="transition-delay: 400ms;">Explore Our Packages</a>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 animate-on-scroll" data-delay="200">Experience a seamless and spiritually enriching Umrah. We handle every detail, so you can focus on what truly matters.</p>
+                <a href="#packages" class="bg-sky-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-sky-400 transition-all duration-300 transform hover:scale-110 shadow-2xl animate-on-scroll" data-delay="400">Explore Our Packages</a>
             </div>
         </section>
 
         <!-- Why Us Section -->
         <section id="why-us" class="py-20 md:py-32 bg-transparent">
-            <div class="container mx-auto px-6 text-center">
+             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Why Travel With Us?</h2>
-                <p class="max-w-3xl mx-auto text-slate-500 mb-16 animate-on-scroll" style="transition-delay: 100ms;">We are committed to providing an unparalleled experience, blending spiritual devotion with premium comfort and meticulous planning.</p>
+                <p class="max-w-3xl mx-auto text-slate-500 mb-16 animate-on-scroll" data-delay="100">We are committed to providing an unparalleled experience, blending spiritual devotion with premium comfort and meticulous planning.</p>
                 <div class="grid md:grid-cols-3 gap-8">
-                     <!-- Feature Card -->
-                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 200ms;">
-                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
-                        </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" data-delay="200">
+                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div>
                         <h3 class="text-xl font-semibold mb-2 text-slate-800">Expert Guidance</h3>
                         <p class="text-slate-500">Our experienced guides are with you every step, ensuring a smooth and meaningful pilgrimage.</p>
                     </div>
-                    <!-- Feature Card -->
-                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 300ms;">
-                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 5c.67 0 1.35.09 2 .26 1.78.47 3.1 2.03 3.5 3.85.13.56.2 1.17.2 1.89v4.2c0 .8-.5 1.5-1.2 1.8s-1.5.2-2.1-.2L12 15l-2.4 1.2c-.6.4-1.4.5-2.1.2-.7-.3-1.2-1-1.2-1.8V11c0-.72.07-1.33.2-1.89.4-1.82 1.72-3.38 3.5-3.85.65-.17 1.33-.26 2-.26Z"/><path d="M12 5V2"/><path d="M7 21v-2"/><path d="M17 21v-2"/></svg>
-                        </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" data-delay="300">
+                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 5c.67 0 1.35.09 2 .26 1.78.47 3.1 2.03 3.5 3.85.13.56.2 1.17.2 1.89v4.2c0 .8-.5 1.5-1.2 1.8s-1.5.2-2.1-.2L12 15l-2.4 1.2c-.6.4-1.4.5-2.1.2-.7-.3-1.2-1-1.2-1.8V11c0-.72.07-1.33.2-1.89.4-1.82 1.72-3.38 3.5-3.85.65-.17 1.33-.26 2-.26Z"/><path d="M12 5V2"/><path d="M7 21v-2"/><path d="M17 21v-2"/></svg></div>
                         <h3 class="text-xl font-semibold mb-2 text-slate-800">Premium Comfort</h3>
                         <p class="text-slate-500">Stay in handpicked 5-star hotels close to the Haramain, with luxury transport for all needs.</p>
                     </div>
-                    <!-- Feature Card -->
-                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 400ms;">
-                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a2 2 0 0 1 3 1.88Z"/></svg>
-                        </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" data-delay="400">
+                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a2 2 0 0 1 3 1.88Z"/></svg></div>
                         <h3 class="text-xl font-semibold mb-2 text-slate-800">All-Inclusive Service</h3>
                         <p class="text-slate-500">From visa to flights and local ziarat, every aspect of your journey is meticulously managed.</p>
                     </div>
-                </div>
+                 </div>
             </div>
         </section>
 
@@ -358,38 +326,26 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Your Journey at a Glance</h2>
-                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">We’ve perfected a seamless process to ensure your pilgrimage is smooth and spiritually fulfilling.</p>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" data-delay="100">We’ve perfected a seamless process to ensure your pilgrimage is smooth and spiritually fulfilling.</p>
                 </div>
                 <div class="grid md:grid-cols-4 gap-y-12 md:gap-y-0 md:gap-x-4">
-                    <!-- Step 1 -->
-                    <div class="step-item text-center animate-on-scroll" style="transition-delay: 200ms;">
-                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M19 8c1.657 0 3 1.343 3 3v4c0 1.657-1.343 3-3 3h-1"/><path d="m22 12-3-3 3-3"/></svg>
-                        </div>
+                    <div class="step-item text-center animate-on-scroll" data-delay="200">
+                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M19 8c1.657 0 3 1.343 3 3v4c0 1.657-1.343 3-3 3h-1"/><path d="m22 12-3-3 3-3"/></svg></div>
                         <h3 class="text-xl font-semibold text-slate-800 mb-2">Consultation</h3>
-                        <p class="text-slate-500 px-2">Share your needs with us, and we'll help you choose the perfect package for your journey.</p>
+                        <p class="text-slate-500 px-2">Share your needs with us, and we'll help you choose the perfect package.</p>
                     </div>
-                     <!-- Step 2 -->
-                    <div class="step-item text-center animate-on-scroll" style="transition-delay: 300ms;">
-                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg>
-                        </div>
+                    <div class="step-item text-center animate-on-scroll" data-delay="300">
+                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg></div>
                         <h3 class="text-xl font-semibold text-slate-800 mb-2">Seamless Booking</h3>
-                        <p class="text-slate-500 px-2">We handle all logistics: visas, flights, and hotel bookings, keeping you informed at every stage.</p>
+                        <p class="text-slate-500 px-2">We handle all logistics: visas, flights, and hotel bookings, keeping you informed.</p>
                     </div>
-                    <!-- Step 3 -->
-                    <div class="step-item text-center animate-on-scroll" style="transition-delay: 400ms;">
-                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                        </div>
+                    <div class="step-item text-center animate-on-scroll" data-delay="400">
+                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
                         <h3 class="text-xl font-semibold text-slate-800 mb-2">Spiritual Journey</h3>
                         <p class="text-slate-500 px-2">Embark on your pilgrimage with our expert team on the ground to guide and assist you.</p>
                     </div>
-                     <!-- Step 4 -->
-                    <div class="step-item text-center animate-on-scroll" style="transition-delay: 500ms;">
-                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M2 13.1a9 9 0 0 1 9-5.9c2.32 0 4.45.89 6.08 2.34"/><path d="m22 8-6 6"/><path d="M16 2v6h6"/><path d="M22 10.9a9 9 0 0 1-9 5.9c-2.32 0-4.45-.89-6.08-2.34"/></svg>
-                        </div>
+                    <div class="step-item text-center animate-on-scroll" data-delay="500">
+                        <div class="icon-wrapper mx-auto bg-white/70 backdrop-blur-sm border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4 z-10 relative transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M2 13.1a9 9 0 0 1 9-5.9c2.32 0 4.45.89 6.08 2.34"/><path d="m22 8-6 6"/><path d="M16 2v6h6"/><path d="M22 10.9a9 9 0 0 1-9 5.9c-2.32 0-4.45-.89-6.08-2.34"/></svg></div>
                         <h3 class="text-xl font-semibold text-slate-800 mb-2">Cherished Return</h3>
                         <p class="text-slate-500 px-2">Return home with a heart full of peace and memories that will last a lifetime. Insha'Allah.</p>
                     </div>
@@ -402,105 +358,81 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Our Umrah Packages</h2>
-                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">Choose from a range of packages designed for your comfort and budget, each promising an unforgettable spiritual experience.</p>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" data-delay="100">Choose from a range of packages designed for your comfort and budget.</p>
                 </div>
-                <div class="grid lg:grid-cols-3 gap-8">
+                <div class="grid lg:grid-cols-3 gap-8 items-stretch">
                     <!-- Package Card -->
-                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll" style="transition-delay: 200ms;">
-                        <img src="https://images.pexels.com/photos/1569076/pexels-photo-1569076.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Economy Package" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-8">
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll flex flex-col" data-delay="200">
+                        <img src="https://placehold.co/600x400/a7f3d0/1e293b?text=Economy" alt="Kaaba during the day" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-8 flex flex-col flex-grow">
                             <h3 class="text-2xl font-bold text-slate-800 mb-2">Economy Comfort</h3>
                             <p class="text-sky-600 font-semibold mb-4">10 Days / 9 Nights</p>
-                            <ul class="space-y-2 text-slate-500 mb-6">
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Direct Flights</li>
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>4-Star Hotel Stays</li>
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Group Transport</li>
+                            <ul class="space-y-2 text-slate-500 mb-6 flex-grow">
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Direct Flights</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>4-Star Hotel Stays</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Group Transport</li>
                             </ul>
-                            <a href="#contact" class="w-full text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
+                            <a href="#contact" class="w-full mt-auto text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
                         </div>
                     </div>
-                     <!-- Package Card (Popular) -->
-                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll border-2 border-sky-500" style="transition-delay: 300ms;">
+                    <!-- Package Card (Popular) -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll border-2 border-sky-500 flex flex-col" data-delay="300">
                         <div class="relative">
-                            <img src="https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Deluxe Package" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
-                             <div class="absolute top-0 right-0 bg-sky-500 text-white text-sm font-bold px-4 py-1 rounded-bl-lg">Most Popular</div>
+                            <img src="https://placehold.co/600x400/67e8f9/1e293b?text=Deluxe" alt="Prophet's Mosque in Medina" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute top-0 right-0 bg-sky-500 text-white text-sm font-bold px-4 py-1 rounded-bl-lg">Most Popular</div>
                         </div>
-                        <div class="p-8">
+                        <div class="p-8 flex flex-col flex-grow">
                             <h3 class="text-2xl font-bold text-slate-800 mb-2">Deluxe Experience</h3>
                             <p class="text-sky-600 font-semibold mb-4">12 Days / 11 Nights</p>
-                            <ul class="space-y-2 text-slate-500 mb-6">
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Business Class Flights</li>
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>5-Star Hotels (Haram View)</li>
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Private Transport & Ziarat</li>
+                            <ul class="space-y-2 text-slate-500 mb-6 flex-grow">
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Business Class Flights</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>5-Star Hotels (Haram View)</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Private Transport & Ziarat</li>
                             </ul>
-                            <a href="#contact" class="w-full text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
+                            <a href="#contact" class="w-full mt-auto text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
                         </div>
                     </div>
-                     <!-- Package Card -->
-                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll" style="transition-delay: 400ms;">
-                        <img src="https://images.pexels.com/photos/103124/pexels-photo-103124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Family Package" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-8">
+                    <!-- Package Card -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll flex flex-col" data-delay="400">
+                        <img src="https://placehold.co/600x400/bae6fd/1e293b?text=Family" alt="Family looking at sunset" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-8 flex flex-col flex-grow">
                             <h3 class="text-2xl font-bold text-slate-800 mb-2">Family Package</h3>
                             <p class="text-sky-600 font-semibold mb-4">14 Days / 13 Nights</p>
-                            <ul class="space-y-2 text-slate-500 mb-6">
-                               <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Convenient Flight Times</li>
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Family Suites Available</li>
-                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Special assistance for elders</li>
+                            <ul class="space-y-2 text-slate-500 mb-6 flex-grow">
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Convenient Flight Times</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Family Suites Available</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Special assistance for elders</li>
                             </ul>
-                             <a href="#contact" class="w-full text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
+                            <a href="#contact" class="w-full mt-auto text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+         </section>
 
         <!-- Gallery Section -->
         <section id="gallery" class="py-20 md:py-32 bg-transparent">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Glimpses of the Journey</h2>
-                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">Visual memoirs from the sacred cities, capturing moments of peace and devotion.</p>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" data-delay="100">Visual memoirs from the sacred cities, capturing moments of peace and devotion.</p>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="grid gap-4 animate-on-scroll" style="transition-delay: 200ms;">
-                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/1563603/pexels-photo-1563603.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 1">
-                            <div class="gallery-label">Tawaf of Kaaba</div>
-                        </div>
-                         <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/1252500/pexels-photo-1252500.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 2">
-                            <div class="gallery-label">Masjid al-Nabawi View</div>
-                        </div>
+                    <div class="grid gap-4 animate-on-scroll" data-delay="200">
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x800/e0f2fe/1e293b?text=Peace" alt="Gallery 1"><div class="gallery-label">Tawaf of Kaaba</div></div>
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x600/e0f2fe/1e293b?text=Devotion" alt="Gallery 2"><div class="gallery-label">Masjid al-Nabawi</div></div>
                     </div>
-                    <div class="grid gap-4 animate-on-scroll" style="transition-delay: 300ms;">
-                         <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/358457/pexels-photo-358457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 3">
-                            <div class="gallery-label">Evening Prayers</div>
-                        </div>
-                         <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/457713/pexels-photo-457713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 4">
-                            <div class="gallery-label">Zamzam Well</div>
-                        </div>
+                    <div class="grid gap-4 animate-on-scroll" data-delay="300">
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x600/e0f2fe/1e293b?text=Serenity" alt="Gallery 3"><div class="gallery-label">Evening Prayers</div></div>
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x800/e0f2fe/1e293b?text=Blessing" alt="Gallery 4"><div class="gallery-label">Zamzam Water</div></div>
                     </div>
-                    <div class="grid gap-4 animate-on-scroll" style="transition-delay: 400ms;">
-                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/327466/pexels-photo-327466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 5">
-                            <div class="gallery-label">Mount Uhud Ziarat</div>
-                        </div>
-                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 6">
-                            <div class="gallery-label">Journey with Comfort</div>
-                        </div>
+                    <div class="grid gap-4 animate-on-scroll" data-delay="400">
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x800/e0f2fe/1e293b?text=History" alt="Gallery 5"><div class="gallery-label">Mount Uhud Ziarat</div></div>
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x600/e0f2fe/1e293b?text=Comfort" alt="Gallery 6"><div class="gallery-label">Journey in Comfort</div></div>
                     </div>
-                     <div class="grid gap-4 animate-on-scroll" style="transition-delay: 500ms;">
-                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 7">
-                            <div class="gallery-label">Reflective Moments</div>
-                        </div>
-                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer">
-                            <img class="h-auto max-w-full" src="https://images.pexels.com/photos/1428277/pexels-photo-1428277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery Image 8">
-                            <div class="gallery-label">Group Guidance</div>
-                        </div>
+                    <div class="grid gap-4 animate-on-scroll" data-delay="500">
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x600/e0f2fe/1e293b?text=Reflection" alt="Gallery 7"><div class="gallery-label">Reflective Moments</div></div>
+                        <div class="gallery-item rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer"><img class="h-auto max-w-full" src="https://placehold.co/500x800/e0f2fe/1e293b?text=Guidance" alt="Gallery 8"><div class="gallery-label">Group Guidance</div></div>
                     </div>
                 </div>
             </div>
@@ -511,22 +443,21 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">What Our Pilgrims Say</h2>
-                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">The greatest reward is the heartfelt duas of those we have had the honor to serve.</p>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" data-delay="100">The heartfelt duas of those we have had the honor to serve.</p>
                 </div>
-                <div id="testimonial-container" class="testimonial-carousel animate-on-scroll" style="transition-delay: 200ms;">
-                    <div id="testimonial-track-js" class="testimonial-track">
-                        <!-- Cards will be injected by JS -->
+                <div class="testimonial-carousel animate-on-scroll" data-delay="200">
+                     <div id="testimonial-track-js" class="testimonial-track">
+                        <!-- Testimonial cards will be dynamically injected by JavaScript -->
                     </div>
                 </div>
             </div>
-        </section>
+         </section>
         
         <!-- CTA and Contact Form Section -->
         <section id="contact" class="py-20 md:py-32 bg-transparent">
             <div class="container mx-auto px-6">
                  <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-2xl p-8 md:p-12 lg:p-16 overflow-hidden">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <!-- Contact Info -->
                         <div class="animate-on-scroll">
                             <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Ready to Begin?</h2>
                              <p class="text-slate-500 mb-8 max-w-lg">Let's plan your sacred journey. Fill out the form, and one of our dedicated travel experts will get in touch with you shortly to discuss your requirements and answer any questions you may have.</p>
@@ -536,49 +467,49 @@
                                 <p class="flex items-center text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500 mr-3"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>contact@riyazuljannah.com</p>
                              </div>
                         </div>
-                        <!-- Contact Form -->
-                         <form id="contactForm" class="space-y-4 animate-on-scroll" style="transition-delay: 200ms;" onsubmit="handleFormSubmit(event)">
+                        <!-- FIXED: The form now has a working submission handler -->
+                         <form id="contactForm" class="space-y-4 animate-on-scroll" data-delay="200">
                             <div>
                                 <label for="name" class="sr-only">Name</label>
-                                <input type="text" id="name" placeholder="Your Name" class="w-full p-3 rounded-lg border bg-slate-50/50 border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required>
+                                <input type="text" name="name" id="name" placeholder="Your Name" class="w-full p-3 rounded-lg border bg-slate-50/50 border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required>
                             </div>
                             <div>
                                 <label for="email" class="sr-only">Email</label>
-                                <input type="email" id="email" placeholder="Your Email Address" class="w-full p-3 rounded-lg border bg-slate-50/50 border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required>
+                                <input type="email" name="email" id="email" placeholder="Your Email Address" class="w-full p-3 rounded-lg border bg-slate-50/50 border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required>
                             </div>
                             <div>
                                 <label for="message" class="sr-only">Message</label>
-                                <textarea id="message" rows="4" placeholder="Your Message or Preferred Package" class="w-full p-3 rounded-lg border bg-slate-50/50 border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required></textarea>
+                                <textarea id="message" name="message" rows="4" placeholder="Your Message or Preferred Package" class="w-full p-3 rounded-lg border bg-slate-50/50 border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-600 transition-all duration-300 transform hover:scale-105">Send Inquiry</button>
+                            <button id="form-submit-button" type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-600 transition-all duration-300 transform hover:scale-105">Send Inquiry</button>
+                            <p id="form-status" class="text-center mt-2"></p>
                          </form>
-                    </div>
+                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- Footer -->
     <footer class="bg-slate-800/80 backdrop-blur-sm text-white">
         <div class="container mx-auto px-6 py-16">
             <div class="grid md:grid-cols-4 gap-12 text-center md:text-left">
-                <div class="md:col-span-2 animate-on-scroll">
+                 <div class="md:col-span-2 animate-on-scroll">
                     <h3 class="text-xl font-bold mb-4">Riyazul Jannah Tours</h3>
                     <p class="text-slate-400 max-w-md">Crafting serene and memorable spiritual journeys to the holy lands. Let us handle the details while you focus on your devotion.</p>
                 </div>
-                <div class="animate-on-scroll" style="transition-delay: 150ms;">
+                <div class="animate-on-scroll" data-delay="150">
                     <h3 class="text-xl font-bold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#why-us" class="text-slate-400 hover:text-sky-400 transition-colors">Why Us</a></li>
+                         <li><a href="#why-us" class="text-slate-400 hover:text-sky-400 transition-colors">Why Us</a></li>
                         <li><a href="#packages" class="text-slate-400 hover:text-sky-400 transition-colors">Packages</a></li>
                         <li><a href="#gallery" class="text-slate-400 hover:text-sky-400 transition-colors">Gallery</a></li>
                         <li><a href="#process" class="text-slate-400 hover:text-sky-400 transition-colors">Our Process</a></li>
                     </ul>
                 </div>
-                <div class="animate-on-scroll" style="transition-delay: 300ms;">
+                <div class="animate-on-scroll" data-delay="300">
                     <h3 class="text-xl font-bold mb-4">Follow Us</h3>
-                    <div class="flex space-x-4 justify-center md:justify-start">
+                     <div class="flex space-x-4 justify-center md:justify-start">
                         <a href="#" aria-label="Facebook" class="text-slate-400 hover:text-sky-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5Z"/></svg></a>
                         <a href="#" aria-label="Twitter" class="text-slate-400 hover:text-sky-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.999 5.033c.01.27.01.542.01.815 0 8.284-6.313 17.83-17.83 17.83A17.74 17.74 0 0 1 0 21.65a12.55 12.55 0 0 0 1.558.086 12.518 12.518 0 0 0 7.746-2.68c-2.43-.044-4.48-1.656-5.188-3.864a4.425 4.425 0 0 0 2.003-.076c-2.54-.514-4.453-2.753-4.453-5.437v-.06a4.48 4.48 0 0 0 2.02.56c-1.2- .8-1.987-2.17-1.987-3.744 0-.825.22-1.595.61-2.27a12.522 12.522 0 0 0 9.086 4.608 4.49 4.49 0 0 1 4.312-5.918 4.49 4.49 0 0 1 3.32.96 8.93 8.93 0 0 0 2.825-1.08c-.29.92-.916 1.7-1.732 2.19a8.913 8.913 0 0 0 2.56-.69c-.4.86-.947 1.63-1.614 2.27Z"/></svg></a>
                         <a href="#" aria-label="Instagram" class="text-slate-400 hover:text-sky-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919A48.978 48.978 0 0 1 12 2.163Zm0 3.482a6.354 6.354 0 1 0 0 12.708 6.354 6.354 0 0 0 0-12.708ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm4.965-10.405a1.44 1.44 0 1 1 2.88 0 1.44 1.44 0 0 1-2.88 0Z" clip-rule="evenodd"/></svg></a>
@@ -592,147 +523,185 @@
     </footer>
     
     <!-- Scroll to Top Button -->
-    <button id="scrollToTopBtn" class="fixed bottom-6 right-6 bg-sky-500 text-white p-3 rounded-full shadow-lg hover:bg-sky-600 transition-all duration-300 opacity-0 transform translate-y-4 pointer-events-none">
+    <button id="scrollToTopBtn" aria-label="Scroll to Top" class="fixed bottom-6 right-6 bg-sky-500 text-white p-3 rounded-full shadow-lg hover:bg-sky-600 transition-all duration-300 opacity-0 transform translate-y-4 pointer-events-none">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
     </button>
-    
+     
     <!-- Inspirational Popup Modal -->
     <div id="inspiration-popup" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4">
-        <div id="inspiration-popup-backdrop" class="absolute inset-0"></div>
+        <div id="inspiration-popup-backdrop" class="absolute inset-0" onclick="closeInspirationPopup()"></div>
         <div id="inspiration-popup-content" class="relative bg-white rounded-lg shadow-2xl p-8 max-w-md w-full text-center">
-            <button onclick="closeInspirationPopup()" class="absolute top-2 right-2 text-slate-400 hover:text-slate-600">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
+            <button onclick="closeInspirationPopup()" aria-label="Close popup" class="absolute top-2 right-2 text-slate-400 hover:text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
             <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-sky-500 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
             <p id="inspiration-text" class="text-slate-600 text-lg"></p>
         </div>
     </div>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
+            // --- Element Selectors ---
             const mainContent = document.querySelector('main');
             const footerContent = document.querySelector('footer');
-
-            // --- Enhanced Preloader Logic ---
             const preloader = document.getElementById('preloader');
-            const preloaderTitle = preloader.querySelector('h1');
-            const preloaderSubtitle = document.getElementById('preloader-subtitle');
-            const titleText = "Riyazul Jannah";
-            
-            titleText.split('').forEach((letter, index) => {
-                const span = document.createElement('span');
-                span.textContent = letter === ' ' ? '\u00A0' : letter;
-                let delay = 0.8 + (index * 0.05);
-                span.style.animationDelay = `${delay}s`;
-                preloaderTitle.appendChild(span);
-            });
-
-            setTimeout(() => {
-                preloaderSubtitle.style.opacity = '1';
-            }, 800 + titleText.length * 50);
-
-            window.addEventListener('load', () => {
-                 setTimeout(() => {
-                    preloader.classList.add('hidden');
-                    mainContent.classList.add('loaded');
-                    footerContent.classList.add('loaded');
-                    // Start inspirational popup timer after main content is visible
-                    startInspirationTimer();
-                    // Start airplane timer
-                    startAirplaneTimer();
-                }, 2000); // Wait for animations to finish
-            });
-            
-            // --- Global Particle Animation ---
-            const globalParticleContainer = document.getElementById('global-particle-container');
-            for(let i=0; i < 30; i++) {
-                let particle = document.createElement('div');
-                particle.classList.add('particle');
-                let size = Math.random() * 5 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.bottom = `-20px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
-                particle.style.animationDelay = `${Math.random() * 10}s`;
-                particle.style.opacity = Math.random() * 0.7;
-                globalParticleContainer.appendChild(particle);
-            }
-
-            // --- Header Scroll Effect ---
             const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('bg-white/95', 'shadow-md', 'backdrop-blur-sm');
-                } else {
-                    header.classList.remove('bg-white/95', 'shadow-md', 'backdrop-blur-sm');
-                }
-            });
-            
-            // --- Mobile Menu Toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const navLinks = document.querySelectorAll('#mobile-menu a');
-
-            mobileMenuButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('active');
-            });
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                     mobileMenu.classList.remove('active');
-                });
-            });
-            
-            // --- Scroll to Top Button Logic ---
             const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-                    scrollToTopBtn.classList.add('active');
-                } else {
-                    scrollToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-                    scrollToTopBtn.classList.remove('active');
+
+            // --- Preloader Logic ---
+            const setupPreloader = () => {
+                const preloaderTitle = document.getElementById('preloader-title');
+                if (!preloaderTitle) return;
+
+                const titleText = "Riyazul Jannah";
+                titleText.split('').forEach((letter, index) => {
+                    const span = document.createElement('span');
+                    span.textContent = letter === ' ' ? '\u00A0' : letter;
+                    span.style.animationDelay = `${0.6 + (index * 0.05)}s`;
+                    preloaderTitle.appendChild(span);
+                });
+
+                setTimeout(() => {
+                    document.getElementById('preloader-subtitle')?.classList.add('opacity-1');
+                }, 800 + titleText.length * 50);
+
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        preloader?.classList.add('hidden');
+                        mainContent?.classList.add('loaded');
+                        footerContent?.classList.add('loaded');
+                        startInspirationTimer();
+                    }, 1500); // Shorter delay for better UX
+                });
+            };
+
+            // --- Particle Animation ---
+            const createParticles = () => {
+                const container = document.getElementById('global-particle-container');
+                if (!container) return;
+                const particleCount = 25;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 4 + 1; // smaller particles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.bottom = `-20px`;
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDuration = `${Math.random() * 15 + 15}s`; // Slower drift
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    particle.style.opacity = (Math.random() * 0.5 + 0.1).toString(); // more subtle
+                    container.appendChild(particle);
                 }
-            });
+            };
 
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // --- Animate on Scroll Logic ---
-            const scrollElements = document.querySelectorAll('.animate-on-scroll');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
+            // --- Header & Navigation Logic ---
+            const setupNavigation = () => {
+                // Sticky header on scroll
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        header?.classList.add('bg-white/95', 'shadow-md', 'backdrop-blur-sm');
+                    } else {
+                        header?.classList.remove('bg-white/95', 'shadow-md', 'backdrop-blur-sm');
                     }
                 });
-            }, { threshold: 0.1 });
-            scrollElements.forEach(el => observer.observe(el));
+
+                // Mobile menu toggle
+                mobileMenuButton?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileMenu?.classList.toggle('active');
+                });
+                document.querySelectorAll('#mobile-menu a').forEach(link => {
+                    link.addEventListener('click', () => mobileMenu?.classList.remove('active'));
+                });
+
+                // Active nav link highlighting
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-link');
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === `#${id}`) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, { rootMargin: '-40% 0px -60% 0px' });
+                sections.forEach(section => observer.observe(section));
+            };
+
+            // --- Scroll-to-Top Button Logic ---
+            const setupScrollToTop = () => {
+                if (!scrollToTopBtn) return;
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                        scrollToTopBtn.classList.add('active');
+                    } else {
+                        scrollToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                        scrollToTopBtn.classList.remove('active');
+                    }
+                });
+                scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            };
+
+            // --- Animate on Scroll Logic ---
+            const setupScrollAnimations = () => {
+                const scrollElements = document.querySelectorAll('.animate-on-scroll');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const el = entry.target;
+                            const delay = parseInt(el.getAttribute('data-delay') || '0');
+                            setTimeout(() => {
+                                el.classList.add('is-visible');
+                            }, delay);
+                            observer.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                scrollElements.forEach(el => observer.observe(el));
+            };
 
             // --- Testimonial Carousel Logic ---
-            const testimonials = [
-                { name: 'Ahmed Khan', location: 'Mumbai, India', avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=2080&auto=format&fit=crop', text: '"From the moment we booked until our return, every detail was handled with utmost professionalism. It was a truly spiritual and worry-free journey. JazakAllah Khair."' },
-                { name: 'Fatima Ali', location: 'Dubai, UAE', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop', text: '"The hotels were incredible, just steps away from the Haram. The guidance provided during the Umrah rites was invaluable. Highly recommended for families."' },
-                { name: 'Yusuf Abdullah', location: 'London, UK', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop', text: '"Riyazul Jannah Tours exceeded all our expectations. The team is passionate, caring, and incredibly organized. Our trip was a blessing in every sense."' },
-                { name: 'Aisha Begum', location: 'Dhaka, Bangladesh', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop', text: '"The all-inclusive package made everything so simple. We could truly focus on our prayers and reflection without any worldly stress. A wonderful experience."' },
-                { name: 'Omar Sharif', location: 'Cairo, Egypt', avatar: 'https://images.unsplash.com/photo-1566753323558-f4e0952af115?q=80&w=1921&auto=format&fit=crop', text: '"I travelled with my elderly parents, and the special assistance provided was exceptional. The team showed great patience and care. We are very grateful."' }
-            ];
+            const setupTestimonials = () => {
+                const track = document.getElementById('testimonial-track-js');
+                if (!track) return;
 
-            const track = document.getElementById('testimonial-track-js');
-            const allTestimonials = [...testimonials, ...testimonials]; 
-            let cardWidth = 350 + 32;
-            track.style.setProperty('--carousel-width', `${testimonials.length * cardWidth}px`);
+                const testimonials = [
+                    { name: 'Ahmed Khan', location: 'Mumbai, India', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d', text: '"From the moment we booked until our return, every detail was handled with utmost professionalism. It was a truly spiritual and worry-free journey. JazakAllah Khair."' },
+                    { name: 'Fatima Ali', location: 'Dubai, UAE', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026705d', text: '"The hotels were incredible, just steps away from the Haram. The guidance provided during the Umrah rites was invaluable. Highly recommended for families."' },
+                    { name: 'Yusuf Abdullah', location: 'London, UK', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026706d', text: '"Riyazul Jannah Tours exceeded all our expectations. The team is passionate, caring, and incredibly organized. Our trip was a blessing in every sense."' },
+                    { name: 'Aisha Begum', location: 'Dhaka, Bangladesh', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026707d', text: '"The all-inclusive package made everything so simple. We could truly focus on our prayers and reflection without any worldly stress. A wonderful experience."' },
+                    { name: 'Omar Sharif', location: 'Cairo, Egypt', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026708d', text: '"I travelled with my elderly parents, and the special assistance provided was exceptional. The team showed great patience and care. We are very grateful."' }
+                ];
 
-            allTestimonials.forEach(testimonial => {
-                const card = document.createElement('div');
-                card.className = 'flex-shrink-0 w-[350px] bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg border-t-4 border-sky-300 mx-4';
-                card.innerHTML = `<p class="text-slate-600 mb-6 h-32"> ${testimonial.text} </p> <div class="flex items-center"> <img class="w-12 h-12 rounded-full mr-4 object-cover" src="${testimonial.avatar}" alt="Avatar"> <div> <p class="font-semibold text-slate-800">${testimonial.name}</p> <p class="text-sm text-slate-400">${testimonial.location}</p> </div> </div>`;
-                track.appendChild(card);
-            });
+                const allTestimonials = [...testimonials, ...testimonials]; // Duplicate for seamless loop
+                track.innerHTML = allTestimonials.map(t => `
+                    <div class="testimonial-card flex-shrink-0 w-[90vw] sm:w-[380px] bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg border-t-4 border-sky-300 mx-4 flex flex-col">
+                        <p class="text-slate-600 mb-6 flex-grow">“${t.text}”</p>
+                        <div class="flex items-center mt-auto">
+                            <img class="w-12 h-12 rounded-full mr-4 object-cover bg-slate-200" src="${t.avatar}" alt="Avatar of ${t.name}">
+                            <div>
+                                <p class="font-semibold text-slate-800">${t.name}</p>
+                                <p class="text-sm text-slate-400">${t.location}</p>
+                            </div>
+                        </div>
+                    </div>`).join('');
+                
+                // FIXED: Robust calculation for slider width
+                const card = track.querySelector('.testimonial-card');
+                if (card) {
+                    const cardMargin = 32; // mx-4 = 1rem * 2 = 32px
+                    const cardWidth = card.offsetWidth + cardMargin;
+                    track.style.setProperty('--carousel-width', `${testimonials.length * cardWidth}px`);
+                }
+            };
             
             // --- Inspirational Popup Logic ---
             const inspirationPopup = document.getElementById('inspiration-popup');
@@ -742,50 +711,65 @@
                 "To be a guest of Allah is the greatest honor one can receive in this life.",
                 "Umrah is not just a journey, but a purification of the soul and a renewal of faith.",
                 "In the crowd of His lovers, you'll find your own heart's peace.",
-                "The Kaaba is a black stone, but it reflects the light of every soul that circles it.",
-                "Wash away your sins with tears of repentance in the holiest of places.",
-                "Every step towards the House of Allah is a step away from the worries of the world.",
-                "Umrah: A journey to disconnect from the world and reconnect with Allah.",
-                "The feeling of your forehead touching the ground in the Haram is a feeling of coming home.",
-                "May your Umrah be accepted and your prayers answered. Ameen."
+                "The Kaaba is a black stone, but it reflects the light of every soul that circles it."
             ];
             
-            window.showInspirationPopup = function() {
+            window.showInspirationPopup = () => {
+                if (!inspirationPopup || !inspirationText) return;
                 const randomIndex = Math.floor(Math.random() * quotes.length);
-                inspirationText.textContent = `"${quotes[randomIndex]}"`;
+                inspirationText.textContent = `“${quotes[randomIndex]}”`;
                 inspirationPopup.classList.remove('hidden');
                 inspirationPopup.classList.add('flex', 'show');
             }
-            window.closeInspirationPopup = function() {
+            window.closeInspirationPopup = () => {
+                if (!inspirationPopup) return;
                 inspirationPopup.classList.remove('show');
                 inspirationPopup.classList.add('hidden');
             }
-            function startInspirationTimer() {
-                setTimeout(showInspirationPopup, 5000);
-            }
+            const startInspirationTimer = () => setTimeout(showInspirationPopup, 8000); // Show after 8 seconds
 
-            // --- Floating Plane Logic ---
-            const plane = document.getElementById('floating-plane');
-            function flyPlane() {
-                plane.classList.remove('plane-path');
-                // Reset animation
-                void plane.offsetWidth; // Trigger reflow
-                plane.classList.add('plane-path');
-                plane.style.opacity = '1';
-                
-                setTimeout(() => {
-                    plane.style.opacity = '0';
-                }, 14000); // Hide after animation
-            }
-            function startAirplaneTimer() {
-                setInterval(() => {
-                    flyPlane();
-                }, 30000); // Fly every 30 seconds
-            }
+            // --- Contact Form Logic ---
+            const setupContactForm = () => {
+                const form = document.getElementById('contactForm');
+                if (!form) return;
 
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const submitButton = document.getElementById('form-submit-button');
+                    const statusMessage = document.getElementById('form-status');
+                    
+                    if(!submitButton || !statusMessage) return;
+
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Sending...';
+                    statusMessage.textContent = '';
+                    statusMessage.classList.remove('text-green-600', 'text-red-600');
+
+                    // Simulate a network request
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Send Inquiry';
+                        statusMessage.textContent = 'Thank you! Your message has been sent.';
+                        statusMessage.classList.add('text-green-600');
+                        form.reset();
+
+                        // Hide the success message after a few seconds
+                        setTimeout(() => {
+                           statusMessage.textContent = '';
+                        }, 5000);
+                    }, 2000);
+                });
+            };
+
+            // --- Initialize All Scripts ---
+            setupPreloader();
+            createParticles();
+            setupNavigation();
+            setupScrollToTop();
+            setupScrollAnimations();
+            setupTestimonials();
+            setupContactForm();
         });
     </script>
-
 </body>
 </html>
-    
