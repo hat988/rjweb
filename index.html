@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riyazul Jannah Tours | Your Sacred Journey Awaits</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* A very light gray, almost white */
+        }
+        
+        /* --- Scroll Animation Classes --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Enhanced Preloader Styles --- */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.75s ease-in-out, visibility 0.75s;
+        }
+
+        #preloader .loader-content h1 span {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInLetter 0.5s forwards;
+        }
+
+        @keyframes fadeInLetter {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* --- Custom Hero Height --- */
+        .hero-section {
+            height: 100vh;
+            max-height: 800px;
+        }
+        
+        /* --- Subtle background pattern for white sections --- */
+        .bg-pattern {
+             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0f9ff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* --- FAQ Accordion --- */
+        .faq-item summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .faq-item[open] .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        /* --- Journey Steps Connector Line --- */
+        .step-connector:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 48px; /* Center with the icon */
+            left: 50%;
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(to right, #0ea5e9, #67e8f9);
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+        @media (max-width: 768px) {
+            .step-connector:not(:last-child)::after {
+                background: linear-gradient(to bottom, #0ea5e9, #67e8f9);
+                width: 2px;
+                height: 100%;
+                left: 48px; /* Center with the icon */
+                top: 50%;
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-sky-600 tracking-wider"></h1>
+            <p class="text-slate-500 mt-3 opacity-0 transition-opacity duration-500" id="preloader-subtitle">Crafting your sacred journey...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-sky-600">Riyazul Jannah</a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-slate-600 hover:text-sky-500 transition-colors">Home</a>
+                <a href="#why-us" class="text-slate-600 hover:text-sky-500 transition-colors">Why Us</a>
+                <a href="#process" class="text-slate-600 hover:text-sky-500 transition-colors">Process</a>
+                <a href="#packages" class="text-slate-600 hover:text-sky-500 transition-colors">Packages</a>
+                <a href="#gallery" class="text-slate-600 hover:text-sky-500 transition-colors">Gallery</a>
+                <a href="#contact" class="text-slate-600 hover:text-sky-500 transition-colors">Contact</a>
+            </nav>
+            <a href="#packages" class="hidden md:inline-block bg-sky-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-sky-600 transition-transform hover:scale-105 shadow-lg">View Packages</a>
+            <button id="mobile-menu-button" class="md:hidden text-slate-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+         <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-sm">
+            <a href="#home" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Home</a>
+            <a href="#why-us" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Why Us</a>
+            <a href="#process" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Process</a>
+            <a href="#packages" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Packages</a>
+            <a href="#gallery" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Gallery</a>
+            <a href="#contact" class="block py-3 px-6 text-slate-600 hover:bg-sky-50">Contact</a>
+            <div class="p-4">
+                 <a href="#packages" class="w-full text-center block bg-sky-500 text-white font-semibold px-5 py-3 rounded-lg hover:bg-sky-600 transition-transform hover:scale-105 shadow-lg">View Packages</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative hero-section flex items-center justify-center text-white text-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1583882790927-33ae85c21257?q=80&w=2070&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20"></div>
+            <div class="relative z-10 px-4">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 animate-on-scroll">A Journey of Faith, <br> Perfected by Us.</h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 animate-on-scroll" style="transition-delay: 200ms;">Experience a seamless and spiritually enriching Umrah with Riyazul Jannah Tours. We handle every detail, so you can focus on what truly matters.</p>
+                <a href="#packages" class="bg-sky-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-sky-400 transition-all duration-300 transform hover:scale-110 shadow-2xl animate-on-scroll" style="transition-delay: 400ms;">Explore Our Packages</a>
+            </div>
+        </section>
+
+        <!-- Why Us Section -->
+        <section id="why-us" class="py-20 md:py-32 bg-white bg-pattern">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Why Travel With Us?</h2>
+                <p class="max-w-3xl mx-auto text-slate-500 mb-16 animate-on-scroll" style="transition-delay: 100ms;">We are committed to providing an unparalleled experience, blending spiritual devotion with premium comfort and meticulous planning.</p>
+                <div class="grid md:grid-cols-3 gap-12">
+                     <!-- Feature Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 200ms;">
+                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Expert Guidance</h3>
+                        <p class="text-slate-500">Our experienced guides are with you every step, ensuring a smooth and meaningful pilgrimage.</p>
+                    </div>
+                    <!-- Feature Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 300ms;">
+                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 5c.67 0 1.35.09 2 .26 1.78.47 3.1 2.03 3.5 3.85.13.56.2 1.17.2 1.89v4.2c0 .8-.5 1.5-1.2 1.8s-1.5.2-2.1-.2L12 15l-2.4 1.2c-.6.4-1.4.5-2.1.2-.7-.3-1.2-1-1.2-1.8V11c0-.72.07-1.33.2-1.89.4-1.82 1.72-3.38 3.5-3.85.65-.17 1.33-.26 2-.26Z"/><path d="M12 5V2"/><path d="M7 21v-2"/><path d="M17 21v-2"/></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Premium Comfort</h3>
+                        <p class="text-slate-500">Stay in handpicked 5-star hotels close to the Haramain, with luxury transport for all needs.</p>
+                    </div>
+                    <!-- Feature Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 400ms;">
+                        <div class="bg-sky-100 p-5 rounded-full inline-block mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a2 2 0 0 1 3 1.88Z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">All-Inclusive Service</h3>
+                        <p class="text-slate-500">From visa to flights and local ziarat, every aspect of your journey is meticulously managed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey at a Glance Section -->
+        <section id="process" class="py-20 md:py-32 bg-sky-50/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Your Journey at a Glance</h2>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">We’ve perfected a seamless four-step process to ensure your pilgrimage is smooth and spiritually fulfilling.</p>
+                </div>
+                <div class="grid md:grid-cols-4 gap-8 md:gap-4 text-center">
+                    <!-- Step 1 -->
+                    <div class="relative step-connector flex flex-col items-center md:block animate-on-scroll" style="transition-delay: 200ms;">
+                        <div class="bg-white border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M19 8c1.657 0 3 1.343 3 3v4c0 1.657-1.343 3-3 3h-1"/><path d="m22 12-3-3 3-3"/></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">1. Consultation</h3>
+                        <p class="text-slate-500 px-4">Share your needs with us, and we'll help you choose the perfect package for your journey.</p>
+                    </div>
+                     <!-- Step 2 -->
+                    <div class="relative step-connector flex flex-col items-center md:block animate-on-scroll" style="transition-delay: 300ms;">
+                        <div class="bg-white border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">2. Seamless Booking</h3>
+                        <p class="text-slate-500 px-4">We handle all logistics: visas, flights, and hotel bookings, keeping you informed at every stage.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative step-connector flex flex-col items-center md:block animate-on-scroll" style="transition-delay: 400ms;">
+                        <div class="bg-white border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54Z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">3. Spiritual Journey</h3>
+                        <p class="text-slate-500 px-4">Embark on your pilgrimage with our expert team on the ground to guide and assist you.</p>
+                    </div>
+                     <!-- Step 4 -->
+                    <div class="relative flex flex-col items-center md:block animate-on-scroll" style="transition-delay: 500ms;">
+                        <div class="bg-white border-2 border-sky-200 w-24 h-24 rounded-full flex items-center justify-center shadow-lg mb-4">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><path d="M2 13.1a9 9 0 0 1 9-5.9c2.32 0 4.45.89 6.08 2.34"/><path d="m22 8-6 6"/><path d="M16 2v6h6"/><path d="M22 10.9a9 9 0 0 1-9 5.9c-2.32 0-4.45-.89-6.08-2.34"/></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">4. Cherished Return</h3>
+                        <p class="text-slate-500 px-4">Return home with a heart full of peace and memories that will last a lifetime. Insha'Allah.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Packages Section -->
+        <section id="packages" class="py-20 md:py-32 bg-white bg-pattern">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Our Umrah Packages</h2>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">Choose from a range of packages designed for your comfort and budget, each promising an unforgettable spiritual experience.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Package Card -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll" style="transition-delay: 200ms;">
+                        <img src="https://images.unsplash.com/photo-1601121044304-e739572459f7?q=80&w=1974&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Kaaba'; " alt="Economy Package" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2">Economy Comfort</h3>
+                            <p class="text-sky-600 font-semibold mb-4">10 Days / 9 Nights</p>
+                            <ul class="space-y-2 text-slate-500 mb-6">
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Direct Flights</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>4-Star Hotel Stays</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Group Transport</li>
+                            </ul>
+                            <a href="#contact" class="w-full text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
+                        </div>
+                    </div>
+                     <!-- Package Card (Popular) -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll border-2 border-sky-500" style="transition-delay: 300ms;">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1542125133-4f51932455b2?q=80&w=1964&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Madinah'; " alt="Deluxe Package" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                             <div class="absolute top-0 right-0 bg-sky-500 text-white text-sm font-bold px-4 py-1 rounded-bl-lg">Most Popular</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2">Deluxe Experience</h3>
+                            <p class="text-sky-600 font-semibold mb-4">12 Days / 11 Nights</p>
+                            <ul class="space-y-2 text-slate-500 mb-6">
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Business Class Flights</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>5-Star Hotels (Haram View)</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Private Transport & Ziarat</li>
+                            </ul>
+                            <a href="#contact" class="w-full text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
+                        </div>
+                    </div>
+                     <!-- Package Card -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 group animate-on-scroll" style="transition-delay: 400ms;">
+                        <img src="https://images.unsplash.com/photo-1599182315905-23f2f89caf18?q=80&w=1965&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Pilgrims'; " alt="Family Package" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2">Family Package</h3>
+                            <p class="text-sky-600 font-semibold mb-4">14 Days / 13 Nights</p>
+                            <ul class="space-y-2 text-slate-500 mb-6">
+                               <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Convenient Flight Times</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Family Suites Available</li>
+                                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Special assistance for elders</li>
+                            </ul>
+                             <a href="#contact" class="w-full text-center block bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600 transition-colors">Inquire Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-20 md:py-32 bg-sky-50/50">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">Glimpses of the Journey</h2>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">Visual memoirs from the sacred cities, capturing moments of peace and devotion.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="grid gap-4 animate-on-scroll" style="transition-delay: 200ms;">
+                        <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1590483793220-b4787a2d4a6a?q=80&w=1964&auto=format&fit=crop" alt="Gallery Image 1">
+                        <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1627920531513-33475d523454?q=80&w=1964&auto=format&fit=crop" alt="Gallery Image 2">
+                    </div>
+                    <div class="grid gap-4 animate-on-scroll" style="transition-delay: 300ms;">
+                         <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1563897375-343813959959?q=80&w=1965&auto=format&fit=crop" alt="Gallery Image 3">
+                         <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1598453496929-7c427843336d?q=80&w=1974&auto=format&fit=crop" alt="Gallery Image 4">
+                    </div>
+                    <div class="grid gap-4 animate-on-scroll" style="transition-delay: 400ms;">
+                        <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1554125883-9a3d45a9a147?q=80&w=1974&auto=format&fit=crop" alt="Gallery Image 5">
+                        <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1612089670171-462375a4155b?q=80&w=1974&auto=format&fit=crop" alt="Gallery Image 6">
+                    </div>
+                     <div class="grid gap-4 animate-on-scroll" style="transition-delay: 500ms;">
+                        <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1604423064293-181958641a96?q=80&w=1964&auto=format&fit=crop" alt="Gallery Image 7">
+                        <img class="h-auto max-w-full rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" src="https://images.unsplash.com/photo-1600195971539-01c9c855a805?q=80&w=2070&auto=format&fit=crop" alt="Gallery Image 8">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 md:py-32 bg-white bg-pattern">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4 animate-on-scroll">What Our Pilgrims Say</h2>
+                    <p class="max-w-3xl mx-auto text-slate-500 animate-on-scroll" style="transition-delay: 100ms;">The greatest reward is the heartfelt duas of those we have had the honor to serve.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial Card 1 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg animate-on-scroll border-t-4 border-sky-300" style="transition-delay: 200ms;">
+                        <p class="text-slate-600 mb-6">"From the moment we booked until our return, every detail was handled with utmost professionalism. It was a truly spiritual and worry-free journey. JazakAllah Khair."</p>
+                        <div class="flex items-center">
+                            <img class="w-12 h-12 rounded-full mr-4 object-cover" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=2080&auto=format&fit=crop" alt="Avatar">
+                            <div>
+                                <p class="font-semibold text-slate-800">Ahmed Khan</p>
+                                <p class="text-sm text-slate-400">Mumbai, India</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Testimonial Card 2 -->
+                     <div class="bg-white p-8 rounded-2xl shadow-lg animate-on-scroll border-t-4 border-sky-300" style="transition-delay: 300ms;">
+                        <p class="text-slate-600 mb-6">"The hotels were incredible, just steps away from the Haram. The guidance provided during the Umrah rites was invaluable. Highly recommended for families."</p>
+                        <div class="flex items-center">
+                            <img class="w-12 h-12 rounded-full mr-4 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" alt="Avatar">
+                            <div>
+                                <p class="font-semibold text-slate-800">Fatima Ali</p>
+                                <p class="text-sm text-slate-400">Dubai, UAE</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Testimonial Card 3 -->
+                     <div class="bg-white p-8 rounded-2xl shadow-lg animate-on-scroll lg:col-span-1 md:col-span-2 border-t-4 border-sky-300" style="transition-delay: 400ms;">
+                        <p class="text-slate-600 mb-6">"Riyazul Jannah Tours exceeded all our expectations. The team is passionate, caring, and incredibly organized. Our trip was a blessing in every sense."</p>
+                        <div class="flex items-center">
+                            <img class="w-12 h-12 rounded-full mr-4 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" alt="Avatar">
+                            <div>
+                                <p class="font-semibold text-slate-800">Yusuf Abdullah</p>
+                                <p class="text-sm text-slate-400">London, UK</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA and Contact Form Section -->
+        <section id="contact" class="py-20 md:py-32 bg-sky-50/50">
+            <div class="container mx-auto px-6">
+                 <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 lg:p-16 overflow-hidden">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <!-- Contact Info -->
+                        <div class="animate-on-scroll">
+                            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Ready to Begin?</h2>
+                             <p class="text-slate-500 mb-8 max-w-lg">Let's plan your sacred journey. Fill out the form, and one of our dedicated travel experts will get in touch with you shortly to discuss your requirements and answer any questions you may have.</p>
+                             <div class="space-y-4">
+                                <p class="flex items-center text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500 mr-3"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>123 Travel Lane, Cityville, India</p>
+                                <p class="flex items-center text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500 mr-3"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+91 123 456 7890</p>
+                                <p class="flex items-center text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500 mr-3"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>contact@riyazuljannah.com</p>
+                             </div>
+                        </div>
+                        <!-- Contact Form -->
+                         <form class="space-y-4 animate-on-scroll" style="transition-delay: 200ms;" onsubmit="event.preventDefault(); alert('Thank you for your message!');">
+                            <div>
+                                <label for="name" class="sr-only">Name</label>
+                                <input type="text" id="name" placeholder="Your Name" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required>
+                            </div>
+                            <div>
+                                <label for="email" class="sr-only">Email</label>
+                                <input type="email" id="email" placeholder="Your Email Address" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required>
+                            </div>
+                            <div>
+                                <label for="message" class="sr-only">Message</label>
+                                <textarea id="message" rows="4" placeholder="Your Message or Preferred Package" class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-600 transition-all duration-300 transform hover:scale-105">Send Inquiry</button>
+                         </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-12 text-center md:text-left">
+                <div class="md:col-span-2 animate-on-scroll">
+                    <h3 class="text-xl font-bold mb-4">Riyazul Jannah Tours</h3>
+                    <p class="text-slate-400 max-w-md">Crafting serene and memorable spiritual journeys to the holy lands. Let us handle the details while you focus on your devotion.</p>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 150ms;">
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#why-us" class="text-slate-400 hover:text-sky-400 transition-colors">Why Us</a></li>
+                        <li><a href="#packages" class="text-slate-400 hover:text-sky-400 transition-colors">Packages</a></li>
+                        <li><a href="#gallery" class="text-slate-400 hover:text-sky-400 transition-colors">Gallery</a></li>
+                        <li><a href="#process" class="text-slate-400 hover:text-sky-400 transition-colors">Our Process</a></li>
+                    </ul>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 300ms;">
+                    <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="#" aria-label="Facebook" class="text-slate-400 hover:text-sky-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5Z"/></svg></a>
+                        <a href="#" aria-label="Twitter" class="text-slate-400 hover:text-sky-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.999 5.033c.01.27.01.542.01.815 0 8.284-6.313 17.83-17.83 17.83A17.74 17.74 0 0 1 0 21.65a12.55 12.55 0 0 0 1.558.086 12.518 12.518 0 0 0 7.746-2.68c-2.43-.044-4.48-1.656-5.188-3.864a4.425 4.425 0 0 0 2.003-.076c-2.54-.514-4.453-2.753-4.453-5.437v-.06a4.48 4.48 0 0 0 2.02.56c-1.2- .8-1.987-2.17-1.987-3.744 0-.825.22-1.595.61-2.27a12.522 12.522 0 0 0 9.086 4.608 4.49 4.49 0 0 1 4.312-5.918 4.49 4.49 0 0 1 3.32.96 8.93 8.93 0 0 0 2.825-1.08c-.29.92-.916 1.7-1.732 2.19a8.913 8.913 0 0 0 2.56-.69c-.4.86-.947 1.63-1.614 2.27Z"/></svg></a>
+                        <a href="#" aria-label="Instagram" class="text-slate-400 hover:text-sky-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919A48.978 48.978 0 0 1 12 2.163Zm0 3.482a6.354 6.354 0 1 0 0 12.708 6.354 6.354 0 0 0 0-12.708ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm4.965-10.405a1.44 1.44 0 1 1 2.88 0 1.44 1.44 0 0 1-2.88 0Z" clip-rule="evenodd"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-slate-700 pt-8 text-center text-slate-500">
+                <p class="text-sm">&copy; 2024 Riyazul Jannah Tours. All Rights Reserved. Website crafted with care.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="fixed bottom-6 right-6 bg-sky-500 text-white p-3 rounded-full shadow-lg hover:bg-sky-600 transition-all duration-300 opacity-0 transform translate-y-4 pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Enhanced Preloader Logic ---
+            const preloader = document.getElementById('preloader');
+            const preloaderTitle = preloader.querySelector('h1');
+            const preloaderSubtitle = document.getElementById('preloader-subtitle');
+            const titleText = "Riyazul Jannah Tours";
+            
+            titleText.split('').forEach((letter, index) => {
+                const span = document.createElement('span');
+                span.textContent = letter === ' ' ? '\u00A0' : letter;
+                span.style.animationDelay = `${index * 0.05}s`;
+                preloaderTitle.appendChild(span);
+            });
+
+            setTimeout(() => {
+                preloaderSubtitle.style.opacity = '1';
+            }, titleText.length * 50 + 200);
+
+            window.addEventListener('load', () => {
+                 setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    preloader.style.visibility = 'hidden';
+                }, titleText.length * 50 + 500);
+            });
+
+            // --- Header Scroll Effect ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-white/95', 'shadow-md', 'backdrop-blur-sm');
+                } else {
+                    header.classList.remove('bg-white/95', 'shadow-md', 'backdrop-blur-sm');
+                }
+            });
+            
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('#mobile-menu a');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close mobile menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                     mobileMenu.classList.add('hidden');
+                });
+            });
+            
+            // --- Scroll to Top Button Logic ---
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                } else {
+                    scrollToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // --- Animate on Scroll Logic ---
+            const scrollElements = document.querySelectorAll('.animate-on-scroll');
+            
+            const elementInView = (el, dividend = 1) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+                );
+            };
+
+            const displayScrollElement = (element) => {
+                element.classList.add('is-visible');
+            };
+
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 1.25)) {
+                        displayScrollElement(el);
+                    } 
+                })
+            }
+            
+            // Initial check and event listener
+            handleScrollAnimation();
+            window.addEventListener('scroll', handleScrollAnimation);
+
+             // --- FAQ Accordion Logic ---
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('toggle', (event) => {
+                    if (item.open) {
+                        // Close other open details elements
+                        faqItems.forEach(otherItem => {
+                            if (otherItem !== item && otherItem.open) {
+                                otherItem.open = false;
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
